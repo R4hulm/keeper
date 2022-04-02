@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Note from "./components/note";
-import notes from "./components/notes";
+import CreateArea from "./components/createArea";
 
 function App() {
-    return (
+    const [notesList,setNotesList] = useState([]);
+
+    function addNote(note) {
+        setNotesList(prevNote => [...prevNote,note])
+        }
+    
+   return (
         <div>
             <Header />
-            {notes.map(noteItem => <Note 
-                key = {noteItem.key}
-                title = {noteItem.title}
-                content = {noteItem.content}
+            <CreateArea onAdd={addNote} />
+
+            {notesList.map(note => <Note 
+                key = {note.key}
+                title = {note.title}
+                content = {note.content}
                 />
             )}
 
